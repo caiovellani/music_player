@@ -1,27 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'app.dart';
+import 'app/models/playlist_provider.dart';
 import 'app/theme/theme_provider.dart';
-import 'app/ui/pages/home_page.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
-      child: const MyApp(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => PlaylistProvider()),
+      ],
+      child: const App(),
     ),
   );
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const HomePage(),
-      theme: Provider.of<ThemeProvider>(context).themeData,
-    );
-  }
 }
